@@ -6,7 +6,6 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,8 +16,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,7 +25,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -41,7 +43,6 @@ import com.example.doodlefrontend.model.DoodleAsteroid
 import com.example.doodlefrontend.ui.theme.DoodleFrontendTheme
 import com.example.doodlefrontend.ui.theme.cursiveFont
 import com.example.doodlefrontend.ui.theme.notcursiveFont
-import com.example.doodlefrontend.ui.theme.yellow
 import kotlin.random.Random
 
 @Composable
@@ -52,7 +53,7 @@ fun WelcomeScreen(navController: NavController = rememberNavController()) {
 
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
-            FloatingBackground {
+             FloatingBackground {
 
             Column(
                 modifier = Modifier
@@ -72,9 +73,9 @@ fun WelcomeScreen(navController: NavController = rememberNavController()) {
 
                 Spacer(modifier = Modifier.weight(1f))
                 Box(modifier = Modifier.padding(bottom = 32.dp)) {
-                    button({
+                    button(photoId = painterResource(R.drawable.doodlerectagle1)){
                         navController.navigate(Routes.NameScreen)
-                    })
+                    }
                 }
 
 
@@ -92,25 +93,30 @@ fun WelcomeScreen(navController: NavController = rememberNavController()) {
 
 @Composable
 @Preview
-fun button(onclick : ()-> Unit = {}) {
+fun button(photoId : Painter = painterResource(R.drawable.doodlerectagle1),onclick: () -> Unit = {}) {
 
     val width: Int = LocalConfiguration.current.screenWidthDp
     val height: Int = LocalConfiguration.current.screenHeightDp
 
     val painterResource = painterResource(R.drawable.arrowdoodle)
 
-    OutlinedButton(
+    Button(
         onClick = onclick,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color.Transparent,
+        ),
         modifier = Modifier
-            .width((width * 0.5).dp)
-            .height((height * 0.1).dp),
-        colors = ButtonDefaults.buttonColors(yellow),
-        border = BorderStroke(width = 6.dp, color = Color.Black)
+            .width((width * 0.8).dp)
+            .height((height * 0.1).dp)
+            .paint(
+                painter = photoId,
+                contentScale = ContentScale.FillBounds
+            )
     ) {
 
         Image(
             painter = painterResource,
-            contentDescription = null
+            contentDescription = null,
         )
 
     }
