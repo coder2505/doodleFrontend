@@ -53,33 +53,33 @@ fun WelcomeScreen(navController: NavController = rememberNavController()) {
 
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
-             FloatingBackground {
+            FloatingBackground {
 
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
-                verticalArrangement = Arrangement.spacedBy(
-                    25.dp,
-                    Alignment.CenterVertically
-                ),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Spacer(modifier = Modifier.weight(1f))
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding),
+                    verticalArrangement = Arrangement.spacedBy(
+                        25.dp,
+                        Alignment.CenterVertically
+                    ),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Spacer(modifier = Modifier.weight(1f))
 
-                text1("Connect with your loved ones,")
-                text2()
-                text1("at a time.")
+                    text1("Connect with your loved ones,")
+                    text2()
+                    text1("at a time.")
 
-                Spacer(modifier = Modifier.weight(1f))
-                Box(modifier = Modifier.padding(bottom = 32.dp)) {
-                    button(photoId = painterResource(R.drawable.doodlerectagle1)){
-                        navController.navigate(Routes.NameScreen)
+                    Spacer(modifier = Modifier.weight(1f))
+                    Box(modifier = Modifier.padding(bottom = 32.dp)) {
+                        button(photoId = painterResource(R.drawable.doodlerectagle1)) {
+                            navController.navigate(Routes.NameScreen)
+                        }
                     }
+
+
                 }
-
-
-            }
 
 
             }
@@ -93,7 +93,10 @@ fun WelcomeScreen(navController: NavController = rememberNavController()) {
 
 @Composable
 @Preview
-fun button(photoId : Painter = painterResource(R.drawable.doodlerectagle1),onclick: () -> Unit = {}) {
+fun button(
+    photoId: Painter = painterResource(R.drawable.doodlerectagle1),
+    onclick: () -> Unit = {}
+) {
 
     val width: Int = LocalConfiguration.current.screenWidthDp
     val height: Int = LocalConfiguration.current.screenHeightDp

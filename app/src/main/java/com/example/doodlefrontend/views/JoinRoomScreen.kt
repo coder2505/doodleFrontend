@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -19,6 +21,7 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,6 +35,8 @@ import com.example.doodlefrontend.ui.theme.notcursiveFont
 @Preview
 
 fun JoinRoom(navController: NavController = rememberNavController()) {
+
+    var textFieldState =  rememberTextFieldState("")
 
     DoodleFrontendTheme {
 
@@ -47,7 +52,7 @@ fun JoinRoom(navController: NavController = rememberNavController()) {
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                doodleTextfield()
+                DoodleTextfield(textFieldState)
 
                 Spacer(modifier = Modifier.weight(1f))
                 Box {
@@ -72,10 +77,13 @@ fun JoinRoom(navController: NavController = rememberNavController()) {
 
 
 @Composable
-fun doodleTextfield(){
+fun DoodleTextfield(textFieldState: TextFieldState){
 
     BasicTextField(
-        state = rememberTextFieldState("enter here"),
+        state = textFieldState,
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Done
+        ),
         modifier = Modifier
             .width(280.dp)
             .height(75.dp)

@@ -57,10 +57,7 @@ fun CreateRoom(navController: NavController = rememberNavController()) {
                         doodleButton(photoId = painterResource(R.drawable.sharedoodle)) {
 
                         }
-                        doodleButton {
-
-
-                        }
+                        doodleButton {}
 
                     }
 
