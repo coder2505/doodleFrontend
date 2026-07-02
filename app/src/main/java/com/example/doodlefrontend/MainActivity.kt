@@ -12,7 +12,9 @@ import com.example.doodlefrontend.views.JoinCreateRoom
 import com.example.doodlefrontend.views.JoinRoom
 import com.example.doodlefrontend.views.NameScreen
 import com.example.doodlefrontend.views.WelcomeScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

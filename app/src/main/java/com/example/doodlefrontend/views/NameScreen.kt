@@ -27,12 +27,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.doodlefrontend.R
 import com.example.doodlefrontend.Routes
-import com.example.doodlefrontend.services.UploadNamePost
 import com.example.doodlefrontend.ui.theme.DoodleFrontendTheme
 import com.example.doodlefrontend.ui.theme.cursiveFont
 import com.example.doodlefrontend.viewmodels.SubmitName
@@ -40,10 +40,9 @@ import com.example.doodlefrontend.viewmodels.UIevents
 
 
 @Composable
-@Preview
 fun NameScreen(
     navController: NavController = rememberNavController(),
-    viewModel: SubmitName = viewModel()
+    viewModel: SubmitName = hiltViewModel()
 ) {
 
     var textFieldState = rememberTextFieldState("")
@@ -124,10 +123,8 @@ fun NameScreen(
                 Box(modifier = Modifier.padding(32.dp)) {
                     button {
 
-
                         viewModel.uploadName(
                             textFieldState.text.toString(),
-                            UploadNamePost()
                         )
 
                     }

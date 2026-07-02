@@ -1,23 +1,19 @@
-package com.example.doodlefrontend.services
+package com.example.doodlefrontend.repository
 
 import android.util.Log
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.doodlefrontend.backendNetwork.BackendApiService
 import com.example.doodlefrontend.configurations.RetrofitInstance
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class UploadNamePost : ViewModel() {
+class UploadNamePost @Inject constructor() {
 
     val sharedFlow = MutableSharedFlow<NameUpload>()
 
-    fun uploadName(name : String) {
+    suspend fun uploadName(name : String) {
 
         val retService =
             RetrofitInstance.getInstance().create(BackendApiService::class.java)
-
-        viewModelScope.launch {
 
             val response = retService.createUser(name)
             if (response.isSuccessful) {
@@ -31,9 +27,6 @@ class UploadNamePost : ViewModel() {
                 sharedFlow.emit(NameUpload.Error("Trouble Uploading"))
 
             }
-
-
-        }
 
     }
 
