@@ -1,8 +1,11 @@
 package com.example.doodlefrontend.backendNetwork
 
+import com.example.doodlefrontend.model.HTTPBody.RefreshEndpoint
 import com.example.doodlefrontend.model.backendResponse.CreateRoomResponse
 import com.example.doodlefrontend.model.backendResponse.CreateUserResponse
+import com.example.doodlefrontend.model.backendResponse.RefreshTokenResponse
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -19,6 +22,10 @@ interface BackendApiService {
         @Path("room-name") roomName : String
     ): Response<CreateRoomResponse>
 
+    @POST("/refresh")
+    suspend fun refresh(
+        @Body refreshEndpoint: RefreshEndpoint
+    ): Response<RefreshTokenResponse>
 
 
 }
