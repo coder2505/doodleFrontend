@@ -1,7 +1,7 @@
 package com.example.doodlefrontend
 
 object Routes {
-    val WelcomeScreen = "WelcomScreen"
+    val WelcomeScreen = "WelcomeScreen"
     val NameScreen = "NameScreen"
     val JoinCreateScreen = "JoinCreateScreen"
     val JoinRoomScreen = "JoinRoom"

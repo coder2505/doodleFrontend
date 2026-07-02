@@ -1,5 +1,6 @@
 package com.example.doodlefrontend.views
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,11 +10,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -24,16 +26,20 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.doodlefrontend.R
+import com.example.doodlefrontend.configurations.RetrofitInstance
+import com.example.doodlefrontend.repository.CreateRoomRepo
+import com.example.doodlefrontend.security.TokenManager
 import com.example.doodlefrontend.ui.theme.DoodleFrontendTheme
-import com.example.doodlefrontend.ui.theme.notcursiveFont
+import kotlinx.coroutines.launch
 
 @Preview
 @Composable
 fun CreateRoom(navController: NavController = rememberNavController()) {
+
+    var textFieldState = rememberTextFieldState("your room name ")
 
     DoodleFrontendTheme {
 
@@ -48,16 +54,19 @@ fun CreateRoom(navController: NavController = rememberNavController()) {
             ) {
 
                 Spacer(modifier = Modifier.weight(1f))
-                Text("hgsjad2", fontFamily = notcursiveFont, fontSize = 64.sp, color = Color.Black)
+                DoodleTextfield(textFieldState)
 
                 Spacer(modifier = Modifier.weight(1f))
                 Box {
 
                     Column() {
-                        doodleButton(photoId = painterResource(R.drawable.sharedoodle)) {
+//                        doodleButton(photoId = painterResource(R.drawable.sharedoodle)) {
+//
+//                        }
+                        doodleButton {
+
 
                         }
-                        doodleButton {}
 
                     }
 

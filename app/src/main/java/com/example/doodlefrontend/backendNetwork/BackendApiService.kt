@@ -1,5 +1,6 @@
 package com.example.doodlefrontend.backendNetwork
 
+import com.example.doodlefrontend.model.backendResponse.CreateRoomResponse
 import com.example.doodlefrontend.model.backendResponse.CreateUserResponse
 import retrofit2.Response
 import retrofit2.http.POST
@@ -11,6 +12,12 @@ interface BackendApiService {
     suspend fun createUser(
         @Path("username") username: String
     ): Response<CreateUserResponse>
+
+
+    @POST("/create-room/{roomName}")
+    suspend fun createRoom(
+        @Path("room-name") roomName : String
+    ): Response<CreateRoomResponse>
 
 
 
