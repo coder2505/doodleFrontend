@@ -1,5 +1,6 @@
 package com.example.doodlefrontend.viewmodels
 
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.doodlefrontend.repository.NameUpload
@@ -12,7 +13,7 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class SubmitName @Inject constructor(
-    private var uploadNamePost: UploadNamePost
+    private var uploadNamePost: UploadNamePost,
 ) : ViewModel() {
 
     val events = MutableSharedFlow<UIevents>()

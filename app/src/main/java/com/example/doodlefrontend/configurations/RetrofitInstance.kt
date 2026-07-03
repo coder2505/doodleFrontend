@@ -1,8 +1,8 @@
 package com.example.doodlefrontend.configurations
 
-import com.example.doodlefrontend.backendNetwork.BackendApiService
-import com.example.doodlefrontend.backendNetwork.HeaderInterceptor
-import com.example.doodlefrontend.backendNetwork.RefreshInterceptor
+import com.example.doodlefrontend.network.BackendApiService
+import com.example.doodlefrontend.network.HeaderInterceptor
+import com.example.doodlefrontend.network.RefreshInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

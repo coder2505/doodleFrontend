@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
@@ -30,6 +29,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.doodlefrontend.R
 import com.example.doodlefrontend.ui.theme.DoodleFrontendTheme
 import com.example.doodlefrontend.ui.theme.notcursiveFont
+import com.example.doodlefrontend.views.createroom.doodleButton
 
 @Composable
 @Preview
@@ -58,10 +58,10 @@ fun JoinRoom(navController: NavController = rememberNavController()) {
                 Box {
 
 
-                        doodleButton {
+                    doodleButton {
 
 
-                        }
+                    }
 
 
                 }

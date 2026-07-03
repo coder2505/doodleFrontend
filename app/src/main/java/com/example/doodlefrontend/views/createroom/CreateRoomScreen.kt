@@ -1,6 +1,5 @@
-package com.example.doodlefrontend.views
+package com.example.doodlefrontend.views.createroom
 
-import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,8 +13,10 @@ import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -26,20 +27,41 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.doodlefrontend.R
-import com.example.doodlefrontend.configurations.RetrofitInstance
-import com.example.doodlefrontend.repository.CreateRoomRepo
-import com.example.doodlefrontend.security.TokenManager
+import com.example.doodlefrontend.Routes
 import com.example.doodlefrontend.ui.theme.DoodleFrontendTheme
-import kotlinx.coroutines.launch
+import com.example.doodlefrontend.viewmodels.CreateRoomViewModel
+import com.example.doodlefrontend.viewmodels.UIEventsCreateRoom
+import com.example.doodlefrontend.views.DoodleTextfield
 
 @Preview
 @Composable
-fun CreateRoom(navController: NavController = rememberNavController()) {
+fun CreateRoom(
+    navController: NavController = rememberNavController(),
+    createRoomViewModel: CreateRoomViewModel = hiltViewModel()
+) {
 
-    var textFieldState = rememberTextFieldState("your room name ")
+    var roomNameState = rememberTextFieldState("your room name ")
+    var snackbarHostState = remember { SnackbarHostState() }
+
+
+    LaunchedEffect(Unit) {
+
+        createRoomViewModel.sharedFlow.collect { event ->
+            when(event){
+
+                is UIEventsCreateRoom.ShowSnackBar -> snackbarHostState.showSnackbar(event.message)
+                is UIEventsCreateRoom.roomCreated -> navController.navigate(Routes.CreateRoomScreen2)
+
+            }
+        }
+
+    }
+
+
 
     DoodleFrontendTheme {
 
@@ -54,17 +76,16 @@ fun CreateRoom(navController: NavController = rememberNavController()) {
             ) {
 
                 Spacer(modifier = Modifier.weight(1f))
-                DoodleTextfield(textFieldState)
+                DoodleTextfield(roomNameState)
 
                 Spacer(modifier = Modifier.weight(1f))
                 Box {
 
                     Column() {
-//                        doodleButton(photoId = painterResource(R.drawable.sharedoodle)) {
-//
-//                        }
+
                         doodleButton {
 
+                            createRoomViewModel.createRoom(roomNameState.text.toString())
 
                         }
 

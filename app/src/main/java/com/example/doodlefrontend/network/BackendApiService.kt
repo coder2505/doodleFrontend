@@ -1,4 +1,4 @@
-package com.example.doodlefrontend.backendNetwork
+package com.example.doodlefrontend.network
 
 import com.example.doodlefrontend.model.HTTPBody.RefreshEndpoint
 import com.example.doodlefrontend.model.backendResponse.CreateRoomResponse
@@ -19,7 +19,7 @@ interface BackendApiService {
 
     @POST("/create-room/{roomName}")
     suspend fun createRoom(
-        @Path("room-name") roomName : String
+        @Path("roomName") roomName : String
     ): Response<CreateRoomResponse>
 
     @POST("/refresh")

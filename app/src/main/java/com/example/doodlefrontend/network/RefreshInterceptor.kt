@@ -1,4 +1,4 @@
-package com.example.doodlefrontend.backendNetwork
+package com.example.doodlefrontend.network
 
 import android.util.Log
 import com.example.doodlefrontend.repository.RefreshTokenRepository

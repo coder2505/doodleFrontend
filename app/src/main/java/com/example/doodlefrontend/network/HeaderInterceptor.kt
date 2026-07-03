@@ -1,4 +1,4 @@
-package com.example.doodlefrontend.backendNetwork
+package com.example.doodlefrontend.network
 
 import com.example.doodlefrontend.security.TokenManager
 import okhttp3.Interceptor
