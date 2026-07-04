@@ -1,5 +1,6 @@
 package com.example.doodlefrontend.network
 
+import android.util.Log
 import com.example.doodlefrontend.security.TokenManager
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -17,6 +18,8 @@ class HeaderInterceptor @Inject constructor(
                 tokenManager.getAccessToken()
             )
         )
+
+        Log.d("request", "intercept: ${chain.request()}")
 
         val newRequest = currentRequest.build()
         return chain.proceed(newRequest)

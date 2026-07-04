@@ -13,7 +13,11 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -24,23 +28,55 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.doodlefrontend.R
 import com.example.doodlefrontend.ui.theme.DoodleFrontendTheme
 import com.example.doodlefrontend.ui.theme.notcursiveFont
+import com.example.doodlefrontend.viewmodels.JoinRoomUIEvents
+import com.example.doodlefrontend.viewmodels.JoinRoomViewModel
 import com.example.doodlefrontend.views.createroom.doodleButton
 
 @Composable
 @Preview
 
-fun JoinRoom(navController: NavController = rememberNavController()) {
+fun JoinRoom(
+    navController: NavController = rememberNavController(),
+    joinRoomViewModel: JoinRoomViewModel = hiltViewModel()
+) {
 
-    var textFieldState =  rememberTextFieldState("")
+    var textFieldState = rememberTextFieldState("")
+    val SnackbarHostState = remember { SnackbarHostState() }
+
+
+    LaunchedEffect(Unit) {
+
+        joinRoomViewModel.sharedFlow.collect { events ->
+
+
+            when(events){
+
+                is JoinRoomUIEvents.ShowSnackBar -> SnackbarHostState.showSnackbar(events.message)
+                is JoinRoomUIEvents.Success -> SnackbarHostState.showSnackbar("SUCCESS BABY")
+
+
+            }
+
+
+
+        }
+
+
+    }
+
+
 
     DoodleFrontendTheme {
 
-        Scaffold { innerPadding ->
+        Scaffold(
+            snackbarHost = { SnackbarHost(SnackbarHostState) }
+        ) { innerPadding ->
 
             Column(
                 modifier = Modifier
@@ -60,6 +96,7 @@ fun JoinRoom(navController: NavController = rememberNavController()) {
 
                     doodleButton {
 
+                        joinRoomViewModel.joinRoom(textFieldState.text.toString())
 
                     }
 
@@ -77,7 +114,7 @@ fun JoinRoom(navController: NavController = rememberNavController()) {
 
 
 @Composable
-fun DoodleTextfield(textFieldState: TextFieldState){
+fun DoodleTextfield(textFieldState: TextFieldState) {
 
     BasicTextField(
         state = textFieldState,

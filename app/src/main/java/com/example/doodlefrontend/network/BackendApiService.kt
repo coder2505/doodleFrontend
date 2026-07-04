@@ -3,6 +3,7 @@ package com.example.doodlefrontend.network
 import com.example.doodlefrontend.model.HTTPBody.RefreshEndpoint
 import com.example.doodlefrontend.model.backendResponse.CreateRoomResponse
 import com.example.doodlefrontend.model.backendResponse.CreateUserResponse
+import com.example.doodlefrontend.model.backendResponse.JoinRoomResponse
 import com.example.doodlefrontend.model.backendResponse.RefreshTokenResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -22,10 +23,15 @@ interface BackendApiService {
         @Path("roomName") roomName : String
     ): Response<CreateRoomResponse>
 
+
+    @POST("/join-room/{roomId}")
+    suspend fun joinRoom(
+        @Path("roomId") roomId : String
+    ) : Response<JoinRoomResponse>
+
     @POST("/refresh")
     suspend fun refresh(
         @Body refreshEndpoint: RefreshEndpoint
     ): Response<RefreshTokenResponse>
-
 
 }
