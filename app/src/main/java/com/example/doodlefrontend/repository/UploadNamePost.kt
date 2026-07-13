@@ -27,7 +27,7 @@ class UploadNamePost @Inject constructor(
 
             } else {
 
-                Log.e("error api", "uploadName: ${response.errorBody()}")
+                Log.e("error api", "uploadName: ${response.errorBody()?.string()}")
                 sharedFlow.emit(NameUpload.Error("Trouble Uploading"))
 
             }
