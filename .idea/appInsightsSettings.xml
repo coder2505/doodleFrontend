@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.doodlefrontend" />
+                  <option name="mobileSdkAppId" value="1:527207424814:android:69e4beae169152fdac50bf" />
+                  <option name="projectId" value="doodleapp-fc91c" />
+                  <option name="projectNumber" value="527207424814" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
