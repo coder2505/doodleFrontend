@@ -5,6 +5,7 @@ coreKtx = "1.19.0"
 
 datastorePreferences = "1.2.1"
 firebaseBom = "34.16.0"
+firebaseInstallations = "19.1.2"
 gson = "2.14.0"
 
 hiltAndroid = "2.60"
@@ -23,6 +24,7 @@ composeBom = "2026.06.00"
 navigationCompose = "2.9.8"
 retrofit = "3.0.0"
 lifecycleLivedataKtx = "2.11.0"
+firebaseMessagingKtx = "25.1.1"
 
 
 [libraries]
@@ -35,6 +37,7 @@ converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref
 converter-scalars = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "converterScalars" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-installations = { module = "com.google.firebase:firebase-installations", version.ref = "firebaseInstallations" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroid" }
@@ -55,6 +58,7 @@ androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-te
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx", version.ref = "firebaseMessagingKtx" }
 
 
 [plugins]

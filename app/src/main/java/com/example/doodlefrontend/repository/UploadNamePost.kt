@@ -12,11 +12,11 @@ class UploadNamePost @Inject constructor(
 
     val sharedFlow = MutableSharedFlow<NameUpload>()
 
-    suspend fun uploadName(name : String) {
+    suspend fun uploadName(name : String, fcmToken : String) {
 
         val retService = retrofitInstance.getInstance()
 
-            val response = retService.createUser(name)
+            val response = retService.createUser(name, fcmToken = fcmToken)
             if (response.isSuccessful) {
 
                 Log.d("RESPONSE SUCCESS", "uploadName: ${response.body()}")

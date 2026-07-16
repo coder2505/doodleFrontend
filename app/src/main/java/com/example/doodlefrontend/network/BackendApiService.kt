@@ -12,9 +12,10 @@ import retrofit2.http.Path
 
 interface BackendApiService {
 
-    @POST("login/user/{username}")
+    @POST("login/user/{username}/{fcmToken}")
     suspend fun createUser(
-        @Path("username") username: String
+        @Path("username") username: String,
+        @Path("fcmToken") fcmToken : String
     ): Response<CreateUserResponse>
 
 
