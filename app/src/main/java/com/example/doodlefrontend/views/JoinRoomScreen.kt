@@ -32,6 +32,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.doodlefrontend.R
+import com.example.doodlefrontend.Routes
 import com.example.doodlefrontend.ui.theme.DoodleFrontendTheme
 import com.example.doodlefrontend.ui.theme.notcursiveFont
 import com.example.doodlefrontend.viewmodels.JoinRoomUIEvents
@@ -55,14 +56,21 @@ fun JoinRoom(
         joinRoomViewModel.sharedFlow.collect { events ->
 
 
-            when(events){
+            when (events) {
 
-                is JoinRoomUIEvents.ShowSnackBar -> SnackbarHostState.showSnackbar(events.message)
-                is JoinRoomUIEvents.Success -> SnackbarHostState.showSnackbar("SUCCESS BABY")
+                is JoinRoomUIEvents.ShowSnackBar -> SnackbarHostState.showSnackbar(
+                    events.message
+                )
+
+                is JoinRoomUIEvents.Success -> {
+
+                    navController.navigate(Routes.HomeScreen)
+
+
+                }
 
 
             }
-
 
 
         }

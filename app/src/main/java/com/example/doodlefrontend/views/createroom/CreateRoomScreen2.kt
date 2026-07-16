@@ -19,6 +19,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.doodlefrontend.Routes
 import com.example.doodlefrontend.ui.theme.DoodleFrontendTheme
 import com.example.doodlefrontend.ui.theme.cursiveFont
 import com.example.doodlefrontend.ui.theme.notcursiveFont
@@ -60,6 +61,7 @@ fun CreateRoomScreen2(
 
                         doodleButton {
 
+                            navController.navigate(Routes.HomeScreen)
 
                         }
 

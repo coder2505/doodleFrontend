@@ -7,4 +7,5 @@ object Routes {
     val JoinRoomScreen = "JoinRoom"
     val CreateRoomScreen = "CreateRoom"
     val CreateRoomScreen2 = "CreateRoom2"
+    val HomeScreen = "HomeScreen"
 }

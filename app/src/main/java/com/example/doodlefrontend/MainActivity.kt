@@ -9,16 +9,22 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.doodlefrontend.views.createroom.CreateRoom
+import com.example.doodlefrontend.security.TokenManager
+import com.example.doodlefrontend.views.HomeScreen.HomeScreen
 import com.example.doodlefrontend.views.JoinCreateRoom
 import com.example.doodlefrontend.views.JoinRoom
 import com.example.doodlefrontend.views.NameScreen
 import com.example.doodlefrontend.views.WelcomeScreen
+import com.example.doodlefrontend.views.createroom.CreateRoom
 import com.example.doodlefrontend.views.createroom.CreateRoomScreen2
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var tokenManager: TokenManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -30,7 +36,7 @@ class MainActivity : ComponentActivity() {
 
             NavHost(
                 navController = navController,
-                startDestination = Routes.WelcomeScreen,
+                startDestination = startScreen(),
                 builder = {
 
                     composable(Routes.WelcomeScreen) {
@@ -66,9 +72,23 @@ class MainActivity : ComponentActivity() {
                         )
                     }
 
+                    composable(Routes.HomeScreen) {
+
+                        HomeScreen()
+
+                    }
+
                 }
             )
 
+        }
+    }
+
+    fun startScreen(): String {
+        return if (tokenManager.getAccessToken() != null) {
+            Routes.HomeScreen
+        } else {
+            Routes.WelcomeScreen
         }
     }
 }
