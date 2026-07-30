@@ -9,10 +9,11 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.Path
+import java.util.UUID
 
 interface BackendApiService {
 
-    @POST("login/user/{username}/{fcmToken}")
+    @POST("/login/user/{username}/{fcmToken}")
     suspend fun createUser(
         @Path("username") username: String,
         @Path("fcmToken") fcmToken : String
@@ -30,9 +31,16 @@ interface BackendApiService {
         @Path("roomId") roomId : String
     ) : Response<JoinRoomResponse>
 
-    @POST("/refresh")
+
+    @POST("/login/refresh")
     suspend fun refresh(
         @Body refreshEndpoint: RefreshEndpoint
     ): Response<RefreshTokenResponse>
+
+
+    @POST("/update-widget/text/{payload}")
+    suspend fun updateText(
+        @Path("payload") payload : String
+    ) : Response<Unit>
 
 }

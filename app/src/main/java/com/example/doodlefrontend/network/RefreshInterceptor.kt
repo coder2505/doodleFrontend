@@ -15,23 +15,34 @@ class RefreshInterceptor @Inject constructor(
     override fun intercept(chain: Interceptor.Chain): Response {
 
         val originalRequest = chain.request()
+
+        // Bypass token refresh request itself to avoid infinite interception loops
+        if (originalRequest.url.encodedPath.contains("/login/refresh")) {
+            return chain.proceed(originalRequest)
+        }
+
         val response = chain.proceed(originalRequest)
 
-        if (response.code == 401) {
+        if (response.code == 401 || response.code == 500) {
 
-            val newAccessToken : String
+            val newAccessToken: String
 
             runBlocking {
                 newAccessToken = refreshTokenRepository.refresh()
             }
 
-            val newRequest = originalRequest.newBuilder()
-                .header("Authorization", "Bearer $newAccessToken")
-                .build()
+            if (newAccessToken != "ERROR") {
+                // Must close the unconsumed response body before executing a new request on the chain
+                response.close()
 
-            Log.d("Refresh Interceptor", "intercepted, new access Token ${newAccessToken}")
+                val newRequest = originalRequest.newBuilder()
+                    .header("Authorization", "Bearer $newAccessToken")
+                    .build()
 
-            return chain.proceed(newRequest)
+                Log.d("Refresh Interceptor", "intercepted, new access Token $newAccessToken")
+
+                return chain.proceed(newRequest)
+            }
         }
 
         return response

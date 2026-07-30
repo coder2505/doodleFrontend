@@ -1,18 +1,18 @@
 package com.example.doodlefrontend.viewmodels
 
 import android.util.Log
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.doodlefrontend.repository.NameUpload
 import com.example.doodlefrontend.repository.UploadNamePost
-import com.google.android.gms.tasks.Task
-import com.google.firebase.installations.FirebaseInstallations
+import com.google.firebase.Firebase
+import com.google.firebase.installations.installations
+import com.google.firebase.messaging.messaging
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.runBlocking
 
 
 @HiltViewModel
@@ -22,15 +22,19 @@ class SubmitName @Inject constructor(
 
     val events = MutableSharedFlow<UIevents>()
 
-    fun uploadName (name: String) {
+    fun uploadName(name: String) {
 
         viewModelScope.launch {
 
             uploadNamePost.sharedFlow.collect { event ->
 
-                when(event){
+                when (event) {
                     is NameUpload.Success -> events.emit(UIevents.navigateToJoinScreen)
-                    is NameUpload.Error -> events.emit(UIevents.ShowSnackBar(event.error))
+                    is NameUpload.Error -> events.emit(
+                        UIevents.ShowSnackBar(
+                            event.error
+                        )
+                    )
                 }
 
             }
@@ -45,16 +49,24 @@ class SubmitName @Inject constructor(
 
         } else {
 
-            viewModelScope.launch {
-                try {
-                    val installationId = FirebaseInstallations.getInstance().id.await()
-                    Log.d("Installations", "Installation ID: $installationId")
+            try {
 
-                    uploadNamePost.uploadName(name, installationId)
+                Firebase.installations.id.addOnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        Log.w("FCM", "Fetching FCM FID failed", task.exception)
+                        return@addOnCompleteListener
+                    }
 
-                } catch (e: Exception) {
-                    Log.e("Installations", "Unable to get Installation ID", e)
+                    val fid = task.result ?: "error_token"
+                    Log.d("FCM", "FCM FID: $fid")
+
+                    runBlocking {
+                        uploadNamePost.uploadName(name, fid as String)
+                    }
                 }
+
+            } catch (e: Exception) {
+                Log.e("Installations", "Unable to get Installation ID", e)
             }
 
         }
@@ -63,6 +75,6 @@ class SubmitName @Inject constructor(
 }
 
 sealed class UIevents {
-    class ShowSnackBar(val name : String) : UIevents()
+    class ShowSnackBar(val name: String) : UIevents()
     object navigateToJoinScreen : UIevents()
 }

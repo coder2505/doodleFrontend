@@ -5,6 +5,8 @@ import com.example.doodlefrontend.configurations.RetrofitInstance
 import com.example.doodlefrontend.security.TokenManager
 import kotlinx.coroutines.flow.MutableSharedFlow
 import javax.inject.Inject
+
+
 class UploadNamePost @Inject constructor(
     private val tokenManager: TokenManager,
     private val retrofitInstance: RetrofitInstance
@@ -12,13 +14,12 @@ class UploadNamePost @Inject constructor(
 
     val sharedFlow = MutableSharedFlow<NameUpload>()
 
-    suspend fun uploadName(name : String, fcmToken : String) {
+    suspend fun uploadName(name: String, fcmToken: String) {
 
         val retService = retrofitInstance.getInstance()
 
             val response = retService.createUser(name, fcmToken = fcmToken)
             if (response.isSuccessful) {
-
                 Log.d("RESPONSE SUCCESS", "uploadName: ${response.body()}")
                 response.body()?.let {
                     tokenManager.saveTokens(it.accessToken, it.refreshToken, it.userId)

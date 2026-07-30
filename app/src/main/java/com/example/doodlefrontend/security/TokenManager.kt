@@ -40,6 +40,13 @@ class TokenManager @Inject constructor(
         }
     }
 
+    suspend fun saveAccessToken(accessToken: String) {
+        val encryptedAccess = cryptoManager.encryptString(accessToken)
+        context.dataStore.edit { prefs ->
+            prefs[ACCESS_TOKEN_KEY] = encryptedAccess
+        }
+    }
+
     val accessTokenFlow: Flow<String?> = context.dataStore.data.map { prefs ->
         prefs[ACCESS_TOKEN_KEY]?.let { cryptoManager.decryptString(it) }
     }

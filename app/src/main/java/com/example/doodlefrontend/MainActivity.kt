@@ -1,6 +1,7 @@
 package com.example.doodlefrontend
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -19,6 +20,7 @@ import com.example.doodlefrontend.views.createroom.CreateRoom
 import com.example.doodlefrontend.views.createroom.CreateRoomScreen2
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlin.math.log
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -86,6 +88,7 @@ class MainActivity : ComponentActivity() {
 
     fun startScreen(): String {
         return if (tokenManager.getAccessToken() != null) {
+            Log.d("hi", tokenManager.getAccessToken().toString())
             Routes.HomeScreen
         } else {
             Routes.WelcomeScreen

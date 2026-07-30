@@ -1,6 +1,5 @@
 package com.example.doodlefrontend.views.HomeScreen
 
-import android.widget.Button
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -22,9 +21,11 @@ import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -35,28 +36,53 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.doodlefrontend.R
 import com.example.doodlefrontend.ui.theme.DoodleFrontendTheme
 import com.example.doodlefrontend.ui.theme.cursiveFont
 import com.example.doodlefrontend.ui.theme.notcursiveFont
 import com.example.doodlefrontend.ui.theme.peach
+import com.example.doodlefrontend.viewmodels.UpdateTextViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    updateTextViewModel: UpdateTextViewModel = hiltViewModel()
+) {
 
     var openBottomSheet by remember { mutableStateOf(false) }
     val bottomSheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true
     )
+    val SnackbarHostState = remember { SnackbarHostState() }
 
+    LaunchedEffect(Unit) {
+
+        updateTextViewModel.sharedFlow.collect { events ->
+
+
+            when (events) {
+
+                is HomeScreen.ShowSnackBar -> SnackbarHostState.showSnackbar(
+                    events.message
+                )
+                is HomeScreen.Success -> {
+                    SnackbarHostState.showSnackbar("Updated")
+                }
+
+            }
+
+
+        }
+
+
+    }
 
     DoodleFrontendTheme {
 
@@ -228,14 +254,16 @@ fun SingleSegmentedButton() {
         Spacer(Modifier.height(5.dp))
 
         Box(
-            modifier = Modifier.size(400.dp).padding(10.dp)
+            modifier = Modifier
+                .size(400.dp)
+                .padding(10.dp)
         ) {
             InputOptions(selectedIndex)
         }
 
-        Button(onClick = {}){
-            Text("Submit")
-        }
+//        Button(onClick = {}) {
+//            Text("Submit")
+//        }
     }
 
 }
@@ -262,4 +290,12 @@ fun ProfileButton() {
         )
 
     }
+}
+
+
+sealed class HomeScreen {
+
+    class ShowSnackBar(val message: String) : HomeScreen()
+    object Success : HomeScreen()
+
 }
