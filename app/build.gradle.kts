@@ -85,4 +85,10 @@ dependencies {
     implementation(libs.firebase.installations)
     implementation(libs.firebase.messaging)
 
+    // For Glance support
+    implementation("androidx.glance:glance:1.3.0-alpha02")
+
+    // For AppWidgets support
+    implementation("androidx.glance:glance-appwidget:1.3.0-alpha02")
+
 }
