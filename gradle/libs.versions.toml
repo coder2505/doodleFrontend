@@ -1,17 +1,21 @@
 [versions]
 agp = "9.1.1"
 converterScalars = "3.0.0"
+converterScalarsVersion = "2.11.0"
 coreKtx = "1.19.0"
 
 datastorePreferences = "1.2.1"
 firebaseBom = "34.16.0"
 firebaseInstallations = "19.1.2"
+glanceAppwidget = "1.3.0-alpha02"
 gson = "2.14.0"
 
 hiltAndroid = "2.60"
 hiltAndroidCompiler = "2.60"
 hiltAndroidVersion = "2.60"
+hiltCompiler = "1.3.0"
 hiltNavigationCompose = "1.4.0"
+hiltWork = "1.4.0"
 ksp = "2.3.9"
 
 junit = "4.13.2"
@@ -25,16 +29,23 @@ navigationCompose = "2.9.8"
 retrofit = "3.0.0"
 lifecycleLivedataKtx = "2.11.0"
 firebaseMessagingKtx = "25.1.1"
+workRuntimeKtx = "2.11.2"
 
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 androidx-datastore-preferences-core = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastorePreferences" }
+androidx-glance = { module = "androidx.glance:glance", version.ref = "glanceAppwidget" }
+androidx-glance-appwidget = { module = "androidx.glance:glance-appwidget", version.ref = "glanceAppwidget" }
+androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltNavigationCompose" }
+androidx-hilt-compiler-v130 = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltCompiler" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterScalars" }
 converter-scalars = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "converterScalars" }
+converter-scalars-v2110 = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "converterScalarsVersion" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-installations = { module = "com.google.firebase:firebase-installations", version.ref = "firebaseInstallations" }
@@ -44,6 +55,7 @@ hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltA
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroid" }
 hilt-android-compiler-v2571 = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
 hilt-android-v2571 = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroidVersion" }
+hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltWork" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

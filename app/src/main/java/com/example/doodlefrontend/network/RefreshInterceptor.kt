@@ -16,7 +16,6 @@ class RefreshInterceptor @Inject constructor(
 
         val originalRequest = chain.request()
 
-        // Bypass token refresh request itself to avoid infinite interception loops
         if (originalRequest.url.encodedPath.contains("/login/refresh")) {
             return chain.proceed(originalRequest)
         }
@@ -32,7 +31,6 @@ class RefreshInterceptor @Inject constructor(
             }
 
             if (newAccessToken != "ERROR") {
-                // Must close the unconsumed response body before executing a new request on the chain
                 response.close()
 
                 val newRequest = originalRequest.newBuilder()

@@ -1,5 +1,6 @@
 package com.example.doodlefrontend
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -11,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.doodlefrontend.security.TokenManager
+import com.example.doodlefrontend.utils.SharedPrefManager
 import com.example.doodlefrontend.views.HomeScreen.HomeScreen
 import com.example.doodlefrontend.views.JoinCreateRoom
 import com.example.doodlefrontend.views.JoinRoom
@@ -29,6 +31,8 @@ class MainActivity : ComponentActivity() {
     lateinit var tokenManager: TokenManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        SharedPrefManager.init(applicationContext)
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

@@ -16,6 +16,9 @@ import androidx.glance.layout.padding
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.example.doodlefrontend.utils.SharedPrefManager
+import javax.inject.Inject
 
 
 @Composable
@@ -35,7 +38,7 @@ fun WidgetContent() {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "hi",
+            text = SharedPrefManager.getText(),
             style = TextStyle(
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,

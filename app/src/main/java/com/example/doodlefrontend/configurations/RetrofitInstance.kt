@@ -6,6 +6,7 @@ import com.example.doodlefrontend.network.RefreshInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Inject
 
 class RetrofitInstance @Inject constructor(
@@ -22,6 +23,7 @@ class RetrofitInstance @Inject constructor(
 
 
         return Retrofit.Builder()
+            .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(BASE_URL)
             .client(interceptors)

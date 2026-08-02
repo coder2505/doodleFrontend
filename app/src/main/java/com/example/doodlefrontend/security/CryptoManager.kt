@@ -55,7 +55,7 @@ class CryptoManager {
     fun decryptString(encryptedText: String): String? {
         return try {
             val decoded = android.util.Base64.decode(encryptedText, android.util.Base64.DEFAULT)
-            val iv = decoded.copyOfRange(0, 12) // GCM IV is 12 bytes
+            val iv = decoded.copyOfRange(0, 12)
             val encrypted = decoded.copyOfRange(12, decoded.size)
             val cipher = getDecryptCipherForIv(iv)
             String(cipher.doFinal(encrypted), Charsets.UTF_8)

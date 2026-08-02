@@ -7,6 +7,7 @@ import com.example.doodlefrontend.model.backendResponse.JoinRoomResponse
 import com.example.doodlefrontend.model.backendResponse.RefreshTokenResponse
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 import java.util.UUID
@@ -38,9 +39,12 @@ interface BackendApiService {
     ): Response<RefreshTokenResponse>
 
 
-    @POST("/update-widget/text/{payload}")
+    @POST("/widget/text/{payload}")
     suspend fun updateText(
         @Path("payload") payload : String
     ) : Response<Unit>
+
+    @GET("/widget/getText")
+    suspend fun getWidgetText(): Response<String>
 
 }

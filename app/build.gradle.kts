@@ -67,6 +67,7 @@ dependencies {
     implementation(libs.retrofit)
     // Retrofit with Scalar Converter
     implementation(libs.converter.gson)
+    implementation(libs.converter.scalars.v2110)
 
     implementation(libs.gson)
 
@@ -78,6 +79,8 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.hilt.work)
+    ksp(libs.androidx.hilt.compiler.v130)
 
     //firebase
     implementation(platform(libs.firebase.bom))
@@ -86,9 +89,12 @@ dependencies {
     implementation(libs.firebase.messaging)
 
     // For Glance support
-    implementation("androidx.glance:glance:1.3.0-alpha02")
+    implementation(libs.androidx.glance)
 
     // For AppWidgets support
-    implementation("androidx.glance:glance-appwidget:1.3.0-alpha02")
+    implementation(libs.androidx.glance.appwidget)
+
+    //work manager
+    implementation(libs.androidx.work.runtime.ktx)
 
 }
