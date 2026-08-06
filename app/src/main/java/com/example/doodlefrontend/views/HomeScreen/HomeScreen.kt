@@ -26,6 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -61,11 +62,11 @@ fun HomeScreen(
         skipPartiallyExpanded = true
     )
     val SnackbarHostState = remember { SnackbarHostState() }
+    var text = updateTextViewModel.doodleText.collectAsState("")
 
     LaunchedEffect(Unit) {
 
         updateTextViewModel.sharedFlow.collect { events ->
-
 
             when (events) {
 
@@ -118,17 +119,24 @@ fun HomeScreen(
                     fontSize = 20.sp,
                     color = Color.Black
                 )
-                Image(
-                    modifier = Modifier
-                        .clickable(
-                            onClick = {
-                                openBottomSheet = !openBottomSheet
-                            }
-                        ),
-                    contentDescription = "",
-                    painter = painterResource(R.drawable.doodlebackground)
+                Box(
+                    contentAlignment = Alignment.Center
+                ) {
+                    Image(
+                        modifier = Modifier
+                            .clickable(
+                                onClick = {
+                                    openBottomSheet = !openBottomSheet
+                                }
+                            ),
+                        contentDescription = "",
+                        painter = painterResource(R.drawable.doodlebackground)
+                    )
 
-                )
+                    Text(
+                        text.value, fontFamily = cursiveFont, color = Color.Black, fontSize = 40.sp
+                    )
+                }
                 Text(
                     "User123",
                     modifier = Modifier.fillMaxWidth(),

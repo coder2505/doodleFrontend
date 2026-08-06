@@ -61,7 +61,7 @@ class SubmitName @Inject constructor(
                     Log.d("FCM", "FCM FID: $fid")
 
                     runBlocking {
-                        uploadNamePost.uploadName(name, fid as String)
+                        uploadNamePost.uploadName(name, fid)
                     }
                 }
 
