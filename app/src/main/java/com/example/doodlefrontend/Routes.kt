@@ -8,4 +8,5 @@ object Routes {
     val CreateRoomScreen = "CreateRoom"
     val CreateRoomScreen2 = "CreateRoom2"
     val HomeScreen = "HomeScreen"
+    val RoomMembersScreen = "RoomMembersScreen"
 }

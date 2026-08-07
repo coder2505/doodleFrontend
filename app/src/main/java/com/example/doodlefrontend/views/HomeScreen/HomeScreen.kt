@@ -1,6 +1,8 @@
 package com.example.doodlefrontend.views.HomeScreen
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,6 +25,7 @@ import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -40,21 +44,28 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.doodlefrontend.R
+import com.example.doodlefrontend.Routes
 import com.example.doodlefrontend.ui.theme.DoodleFrontendTheme
 import com.example.doodlefrontend.ui.theme.cursiveFont
 import com.example.doodlefrontend.ui.theme.notcursiveFont
 import com.example.doodlefrontend.ui.theme.peach
+import com.example.doodlefrontend.viewmodels.GetRoomMembers
 import com.example.doodlefrontend.viewmodels.UpdateTextViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 fun HomeScreen(
-    updateTextViewModel: UpdateTextViewModel = hiltViewModel()
+    updateTextViewModel: UpdateTextViewModel = hiltViewModel(),
+    getRoomMembers: GetRoomMembers = hiltViewModel(),
+    navController: NavController = rememberNavController()
 ) {
 
     var openBottomSheet by remember { mutableStateOf(false) }
@@ -107,7 +118,7 @@ fun HomeScreen(
                         color = Color.Black
                     )
                     Spacer(Modifier.weight(1f))
-                    ProfileButton()
+                    ProfileButton(navController)
                 }
 
                 Spacer(modifier = Modifier.weight(1f))
@@ -174,32 +185,35 @@ fun HomeScreen(
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
+@Preview
 @Composable
 fun ModalSheet(
-    bottomSheetState: SheetState,
-    onDismiss: () -> Unit
+    bottomSheetState: SheetState = rememberModalBottomSheetState(),
+    onDismiss: () -> Unit = {}
 ) {
-
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = bottomSheetState,
         scrimColor = Color.Transparent,
-        containerColor = Color(0xffF5E3AF),
+        containerColor = Color.Transparent,
+        dragHandle = null,
         modifier = Modifier.fillMaxWidth()
     ) {
-
-        Column(
+        Surface(
             modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally,
+            color = Color(0xffF5E3AF),
+            shape = BottomSheetDefaults.ExpandedShape,
+            border = BorderStroke(2.dp, Color.Black)
         ) {
-
-            SingleSegmentedButton()
-
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                BottomSheetDefaults.DragHandle()
+                SingleSegmentedButton()
+            }
         }
-
     }
-
-
 }
 
 @Composable
@@ -217,6 +231,7 @@ fun InputOptions(index: Int) {
 }
 
 
+@Preview
 @Composable
 fun SingleSegmentedButton() {
 
@@ -269,17 +284,16 @@ fun SingleSegmentedButton() {
             InputOptions(selectedIndex)
         }
 
-//        Button(onClick = {}) {
-//            Text("Submit")
-//        }
     }
 
 }
 
 @Composable
-fun ProfileButton() {
+fun ProfileButton(navController: NavController) {
     Button(
-        onClick = {},
+        onClick = {
+            navController.navigate(Routes.RoomMembersScreen)
+        },
         colors = ButtonDefaults.buttonColors(
             containerColor = Color.Transparent
         ),

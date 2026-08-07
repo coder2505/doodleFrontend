@@ -15,7 +15,5 @@ class JoinRoomRepo @Inject constructor(
 
              Log.d("inside join room repo", "join: $roomId")
              return retrofitInstance.getInstance().joinRoom(roomId)
-
-
     }
 }
