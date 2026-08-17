@@ -22,6 +22,7 @@ import com.example.doodlefrontend.views.JoinCreateRoom
 import com.example.doodlefrontend.views.JoinRoom
 import com.example.doodlefrontend.views.NameScreen
 import com.example.doodlefrontend.views.RoomMembersScreen
+import com.example.doodlefrontend.views.UpdateScreenTextScreen
 import com.example.doodlefrontend.views.WelcomeScreen
 import com.example.doodlefrontend.views.createroom.CreateRoom
 import com.example.doodlefrontend.views.createroom.CreateRoomScreen2
@@ -101,6 +102,12 @@ class MainActivity : ComponentActivity() {
                         val membersList by getRoomMembersViewModel.listMembers.collectAsState()
 
                         RoomMembersScreen(listMembers = membersList)
+                    }
+
+                    composable(Routes.UpdateTextScreen) {
+
+                        UpdateScreenTextScreen()
+
                     }
                 }
             )

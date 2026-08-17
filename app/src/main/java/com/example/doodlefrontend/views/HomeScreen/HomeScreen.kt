@@ -137,7 +137,8 @@ fun HomeScreen(
                         modifier = Modifier
                             .clickable(
                                 onClick = {
-                                    openBottomSheet = !openBottomSheet
+//                                    openBottomSheet = !openBottomSheet
+                                    navController.navigate(Routes.UpdateTextScreen)
                                 }
                             ),
                         contentDescription = "",
@@ -164,17 +165,17 @@ fun HomeScreen(
 
             }
 
-            if (openBottomSheet) {
-
-
-                ModalSheet(
-                    bottomSheetState
-                ) {
-                    openBottomSheet = false
-                }
-
-
-            }
+//            if (openBottomSheet) {
+//
+//
+//                ModalSheet(
+//                    bottomSheetState
+//                ) {
+//                    openBottomSheet = false
+//                }
+//
+//
+//            }
 
 
         }
