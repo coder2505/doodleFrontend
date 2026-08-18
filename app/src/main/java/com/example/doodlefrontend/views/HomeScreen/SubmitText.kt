@@ -65,7 +65,7 @@ private fun UI(
         Button(
             onClick = {
                 val text = textFieldState.text.toString();
-                updateTextViewModel.update(payload = text)
+//                updateTextViewModel.update(payload = text)
             },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Transparent,

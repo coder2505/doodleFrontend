@@ -16,6 +16,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,8 +42,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 fun UpdateScreenTextScreen() {
     val scrollState = rememberScrollState()
     val width = LocalConfiguration.current.screenWidthDp
-    val fontSelected = remember { MutableStateFlow<FontFamily>(listOfFonts[0].fontFamily) }
-    val colorSelected = remember { MutableStateFlow(listOfColor[0].colorOption) }
+    val fontSelected =
+        remember { MutableStateFlow<FontFamily>(listOfFonts[0].fontFamily) }
+    val colorSelected =
+        remember { MutableStateFlow(listOfColor[0].colorOption) }
     val textFieldState = rememberTextFieldState()
 
     DoodleFrontendTheme {
@@ -54,9 +57,18 @@ fun UpdateScreenTextScreen() {
                     .padding(horizontal = 8.dp)
                     .verticalScroll(scrollState)
             ) {
-                Header()
+                Header(
+                    textFieldState = textFieldState,
+                    color = colorSelected.collectAsState().value,
+                    font = fontSelected.collectAsState().value
+                )
                 Spacer(Modifier.height(32.dp))
-                PreviewWidget(width, fontSelected, colorSelected, textFieldState)
+                PreviewWidget(
+                    width,
+                    fontSelected,
+                    colorSelected,
+                    textFieldState
+                )
 
                 Spacer(modifier = Modifier.height(16.dp))
                 Box(

@@ -26,12 +26,12 @@ class UpdateTextViewModel @Inject constructor(
         _doodleText.value = SharedPrefManager.getText()
     }
 
-    fun update(payload: String) {
+    fun update(payload: String, color : String, font : String) {
 
         viewModelScope.launch {
 
             val resp =
-                updateNameRepo.uploadName(payload = payload)
+                updateNameRepo.uploadName(payload = payload, background = color, font = font)
 
             if (resp.isSuccessful) {
 

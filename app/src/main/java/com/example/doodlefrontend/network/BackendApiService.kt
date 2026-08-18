@@ -1,6 +1,7 @@
 package com.example.doodlefrontend.network
 
 import com.example.doodlefrontend.model.HTTPBody.RefreshEndpoint
+import com.example.doodlefrontend.model.RequestBodies.UpdateText
 import com.example.doodlefrontend.model.backendResponse.CreateRoomResponse
 import com.example.doodlefrontend.model.backendResponse.CreateUserResponse
 import com.example.doodlefrontend.model.backendResponse.JoinRoomResponse
@@ -39,9 +40,9 @@ interface BackendApiService {
     ): Response<RefreshTokenResponse>
 
 
-    @POST("/widget/text/{payload}")
+    @POST("/widget/text")
     suspend fun updateText(
-        @Path("payload") payload : String
+        @Body updateText: UpdateText
     ) : Response<Unit>
 
     @GET("/widget/getText")
