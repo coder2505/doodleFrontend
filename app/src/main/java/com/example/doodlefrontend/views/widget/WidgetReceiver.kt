@@ -1,28 +1,33 @@
 package com.example.doodlefrontend.views.widget
 
+import android.appwidget.AppWidgetManager
 import android.content.Context
-import android.util.Log
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import androidx.work.WorkRequest
-import com.example.doodlefrontend.repository.GetWidgetTextRepo
 import com.example.doodlefrontend.services.GetTextWorkManager
-import javax.inject.Inject
-import kotlin.math.log
 
-class WidgetReceiver() : GlanceAppWidgetReceiver() {
+
+class WidgetReceiver : GlanceAppWidgetReceiver() {
     override val glanceAppWidget: GlanceAppWidget = Widget()
 
     override fun onEnabled(context: Context?) {
         super.onEnabled(context)
+        context?.let { enqueueWork(it) }
+    }
 
-        val uploadWorkRequest: WorkRequest = OneTimeWorkRequestBuilder<GetTextWorkManager>().build()
+    override fun onUpdate(
+        context: Context,
+        appWidgetManager: AppWidgetManager,
+        appWidgetIds: IntArray
+    ) {
+        super.onUpdate(context, appWidgetManager, appWidgetIds)
+        enqueueWork(context)
+    }
 
-        if (context != null) {
-            Log.d("from widgetReciever", "widget placed on screen")
-            WorkManager.getInstance(context).enqueue(uploadWorkRequest)
-        }
+    private fun enqueueWork(context: Context) {
+        val request = OneTimeWorkRequestBuilder<GetTextWorkManager>().build()
+        WorkManager.getInstance(context).enqueue(request)
     }
 }

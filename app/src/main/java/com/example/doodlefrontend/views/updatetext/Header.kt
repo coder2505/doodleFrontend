@@ -13,13 +13,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.sp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.doodlefrontend.ui.theme.notcursiveFont
 import com.example.doodlefrontend.viewmodels.UpdateTextViewModel
 
 @Composable
 fun Header(
-    updateTextViewModel: UpdateTextViewModel = hiltViewModel(),
+    updateTextViewModel: UpdateTextViewModel,
     textFieldState: TextFieldState,
     color: Color,
     font: FontFamily

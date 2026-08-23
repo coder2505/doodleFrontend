@@ -26,7 +26,6 @@ class GetTextWorkManager @AssistedInject constructor(
         val responseText = getWidgetTextRepo.getText()
 
         if(responseText.isSuccessful){
-            Log.d("INSIDE WORKER", responseText.body().toString())
             SharedPrefManager.setText(responseText.body().toString())
             Widget().updateAll(applicationContext)
             return Result.success()

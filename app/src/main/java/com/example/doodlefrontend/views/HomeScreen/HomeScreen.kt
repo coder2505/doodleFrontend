@@ -68,33 +68,7 @@ fun HomeScreen(
     navController: NavController = rememberNavController()
 ) {
 
-    var openBottomSheet by remember { mutableStateOf(false) }
-    val bottomSheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true
-    )
-    val SnackbarHostState = remember { SnackbarHostState() }
     var text = updateTextViewModel.doodleText.collectAsState("")
-
-    LaunchedEffect(Unit) {
-
-        updateTextViewModel.sharedFlow.collect { events ->
-
-            when (events) {
-
-                is HomeScreen.ShowSnackBar -> SnackbarHostState.showSnackbar(
-                    events.message
-                )
-                is HomeScreen.Success -> {
-                    SnackbarHostState.showSnackbar("Updated")
-                }
-
-            }
-
-
-        }
-
-
-    }
 
     DoodleFrontendTheme {
 

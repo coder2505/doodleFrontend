@@ -104,9 +104,16 @@ class MainActivity : ComponentActivity() {
                         RoomMembersScreen(listMembers = membersList)
                     }
 
-                    composable(Routes.UpdateTextScreen) {
+                    composable(Routes.UpdateTextScreen) { backStackEntry ->
 
-                        UpdateScreenTextScreen()
+                        val parentEntry = remember(backStackEntry) {
+                            navController.getBackStackEntry(HomeScreen)
+                        }
+
+                        UpdateScreenTextScreen(
+                            navController = navController,
+                            updateTextViewModel = hiltViewModel(parentEntry)
+                        )
 
                     }
                 }

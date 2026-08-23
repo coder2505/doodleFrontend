@@ -32,6 +32,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     MessagingServiceEntryPoint.class
             );
 
+            System.out.println("TEXT RECIEVED "+ text);
+
             Widget widget = entryPoint.widget();
 
             SharedPrefManager.INSTANCE.setText(text);

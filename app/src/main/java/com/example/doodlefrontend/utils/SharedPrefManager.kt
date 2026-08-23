@@ -39,7 +39,7 @@ object SharedPrefManager {
      * Sets the "text" string value in SharedPreferences using Context.
      */
     fun setText(context: Context, text: String) {
-        getPrefs(context).edit { putString(KEY_TEXT, text) }
+        getPrefs(context).edit(commit = true) { putString(KEY_TEXT, text) }
     }
 
     /**
@@ -62,7 +62,7 @@ object SharedPrefManager {
         val prefs = sharedPreferences ?: throw IllegalStateException(
             "SharedPrefManager is not initialized. Call SharedPrefManager.init(context) or pass Context."
         )
-        prefs.edit { putString(KEY_TEXT, text) }
+        prefs.edit(commit = true) { putString(KEY_TEXT, text) }
     }
 
     /**

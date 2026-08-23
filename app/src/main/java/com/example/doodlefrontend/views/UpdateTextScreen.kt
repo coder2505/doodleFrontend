@@ -14,8 +14,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -27,8 +29,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.Navigator
+import androidx.navigation.compose.rememberNavController
 import com.example.doodlefrontend.ui.theme.DoodleFrontendTheme
 import com.example.doodlefrontend.ui.theme.notcursiveFont
+import com.example.doodlefrontend.viewmodels.UpdateTextViewModel
+import com.example.doodlefrontend.views.HomeScreen.HomeScreen
 import com.example.doodlefrontend.views.updatetext.BackgroundColorRow
 import com.example.doodlefrontend.views.updatetext.Header
 import com.example.doodlefrontend.views.updatetext.PreviewWidget
@@ -39,7 +47,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 @Preview
 @Composable
-fun UpdateScreenTextScreen() {
+fun UpdateScreenTextScreen(
+    navController: NavController = rememberNavController(),
+    updateTextViewModel: UpdateTextViewModel = hiltViewModel()
+) {
     val scrollState = rememberScrollState()
     val width = LocalConfiguration.current.screenWidthDp
     val fontSelected =
@@ -47,9 +58,37 @@ fun UpdateScreenTextScreen() {
     val colorSelected =
         remember { MutableStateFlow(listOfColor[0].colorOption) }
     val textFieldState = rememberTextFieldState()
+    val SnackbarHostState = remember { SnackbarHostState() }
+
+
+    LaunchedEffect(Unit) {
+
+        updateTextViewModel.sharedFlowUpdateName.collect { events ->
+
+            if (events is HomeScreen.Success) {
+
+                navController.popBackStack()
+
+            } else if (events is HomeScreen.ShowSnackBar) {
+
+                SnackbarHostState.showSnackbar(events.message)
+
+            }
+
+
+        }
+
+
+    }
+
+
+
+
 
     DoodleFrontendTheme {
-        Scaffold { innerPadding ->
+        Scaffold(
+            snackbarHost = { androidx.compose.material3.SnackbarHost(SnackbarHostState) }
+        ) { innerPadding ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -58,6 +97,7 @@ fun UpdateScreenTextScreen() {
                     .verticalScroll(scrollState)
             ) {
                 Header(
+                    updateTextViewModel = updateTextViewModel,
                     textFieldState = textFieldState,
                     color = colorSelected.collectAsState().value,
                     font = fontSelected.collectAsState().value
