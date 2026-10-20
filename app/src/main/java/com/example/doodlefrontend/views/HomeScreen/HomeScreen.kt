@@ -52,10 +52,12 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.doodlefrontend.R
 import com.example.doodlefrontend.Routes
+import com.example.doodlefrontend.repository.GetRoomDetails
 import com.example.doodlefrontend.ui.theme.DoodleFrontendTheme
 import com.example.doodlefrontend.ui.theme.cursiveFont
 import com.example.doodlefrontend.ui.theme.notcursiveFont
 import com.example.doodlefrontend.ui.theme.peach
+import com.example.doodlefrontend.viewmodels.GetRoomDetailsViewModel
 import com.example.doodlefrontend.viewmodels.GetRoomMembers
 import com.example.doodlefrontend.viewmodels.UpdateTextViewModel
 
@@ -65,10 +67,12 @@ import com.example.doodlefrontend.viewmodels.UpdateTextViewModel
 fun HomeScreen(
     updateTextViewModel: UpdateTextViewModel = hiltViewModel(),
     getRoomMembers: GetRoomMembers = hiltViewModel(),
+    getRoomDetails: GetRoomDetailsViewModel = hiltViewModel(),
     navController: NavController = rememberNavController()
 ) {
 
     var text = updateTextViewModel.doodleText.collectAsState("")
+    var roomName = getRoomDetails.roomName.collectAsState()
 
     DoodleFrontendTheme {
 
@@ -86,7 +90,7 @@ fun HomeScreen(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        "Backrooms",
+                        roomName.value,
                         fontFamily = cursiveFont,
                         fontSize = 32.sp,
                         color = Color.Black
@@ -130,7 +134,6 @@ fun HomeScreen(
                     fontSize = 20.sp,
                     textAlign = TextAlign.End,
                     color = Color.Black
-
                 )
 
 

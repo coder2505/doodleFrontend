@@ -26,15 +26,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.doodlefrontend.ui.theme.DoodleFrontendTheme
 import com.example.doodlefrontend.ui.theme.notcursiveFont
+import com.example.doodlefrontend.viewmodels.GetRoomDetailsViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 @Preview
 @Composable
 fun RoomMembersScreen(
-    listMembers : List<String> = listOf("manish", "anushka", "jagan", "yukta")
+    listMembers : List<String> = listOf("manish", "anushka", "jagan", "yukta"),
+    roomNumber: Int = 502
 ) {
-    
+
     DoodleFrontendTheme() {
 
         Scaffold(modifier = Modifier.fillMaxSize()) { contentPadding ->
@@ -48,7 +52,7 @@ fun RoomMembersScreen(
             ) {
                 
                     Text(
-                        "502",
+                        roomNumber.toString(),
                         style = TextStyle(
                             color = Color.Black,
                             fontFamily = notcursiveFont,

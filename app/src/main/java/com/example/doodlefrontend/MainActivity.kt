@@ -14,8 +14,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.doodlefrontend.Routes.HomeScreen
+import com.example.doodlefrontend.repository.GetRoomDetails
 import com.example.doodlefrontend.security.TokenManager
 import com.example.doodlefrontend.utils.SharedPrefManager
+import com.example.doodlefrontend.viewmodels.GetRoomDetailsViewModel
 import com.example.doodlefrontend.viewmodels.GetRoomMembers
 import com.example.doodlefrontend.views.HomeScreen.HomeScreen
 import com.example.doodlefrontend.views.JoinCreateRoom
@@ -98,10 +100,12 @@ class MainActivity : ComponentActivity() {
                         }
 
                         val getRoomMembersViewModel: GetRoomMembers = hiltViewModel(parentEntry)
+                        val getRoomDetailsViewModel : GetRoomDetailsViewModel = hiltViewModel(parentEntry)
 
                         val membersList by getRoomMembersViewModel.listMembers.collectAsState()
+                        val roomCode by getRoomDetailsViewModel.roomCode.collectAsState()
 
-                        RoomMembersScreen(listMembers = membersList)
+                        RoomMembersScreen(listMembers = membersList, roomCode)
                     }
 
                     composable(Routes.UpdateTextScreen) { backStackEntry ->

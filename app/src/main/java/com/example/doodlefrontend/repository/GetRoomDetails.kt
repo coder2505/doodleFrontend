@@ -4,7 +4,7 @@ import com.example.doodlefrontend.configurations.RetrofitInstance
 import retrofit2.Response
 import javax.inject.Inject
 
-class GetRoomMembers @Inject constructor(
+class GetRoomDetails @Inject constructor(
     val retrofitInstance: RetrofitInstance
 ) {
 
@@ -12,5 +12,8 @@ class GetRoomMembers @Inject constructor(
         return retrofitInstance.getInstance().getRoomMembers()
     }
 
+    suspend fun getRoomDetails(): Response<Map<String,String>>{
+        return retrofitInstance.getInstance().getRoomDetails()
+    }
 
 }

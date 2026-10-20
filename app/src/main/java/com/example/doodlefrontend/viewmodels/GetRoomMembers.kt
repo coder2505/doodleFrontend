@@ -2,17 +2,16 @@ package com.example.doodlefrontend.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.doodlefrontend.repository.GetRoomMembers
+import com.example.doodlefrontend.repository.GetRoomDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
 class GetRoomMembers @Inject constructor(
-    val getRoomMembers: GetRoomMembers
+    val getRoomMembers: GetRoomDetails
 ) : ViewModel(){
 
     private var _listMembers = MutableStateFlow<List<String>>(listOf())

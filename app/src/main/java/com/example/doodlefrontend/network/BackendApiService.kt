@@ -51,4 +51,7 @@ interface BackendApiService {
     @GET("/get/roomMembers")
     suspend fun getRoomMembers() : Response<List<String>>
 
+    @GET("/get/roomDetails")
+    suspend fun getRoomDetails() : Response<Map<String, String>>
+
 }
