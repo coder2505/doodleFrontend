@@ -41,7 +41,7 @@ fun RoomMembersScreen(
 
     DoodleFrontendTheme() {
 
-        Scaffold(modifier = Modifier.fillMaxSize()) { contentPadding ->
+        Scaffold(modifier = Modifier.fillMaxSize(), topBar = {}) { contentPadding ->
 
             Column(
                 modifier = Modifier

@@ -34,5 +34,4 @@ class GetRoomDetailsViewModel @Inject constructor(
         return getRoomDetails.getRoomDetails().body() ?: mapOf()
     }
 
-
 }

@@ -66,7 +66,6 @@ import com.example.doodlefrontend.viewmodels.UpdateTextViewModel
 @Composable
 fun HomeScreen(
     updateTextViewModel: UpdateTextViewModel = hiltViewModel(),
-    getRoomMembers: GetRoomMembers = hiltViewModel(),
     getRoomDetails: GetRoomDetailsViewModel = hiltViewModel(),
     navController: NavController = rememberNavController()
 ) {

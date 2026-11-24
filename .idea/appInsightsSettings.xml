@@ -9,9 +9,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.example.doodlefrontend" />
-                  <option name="mobileSdkAppId" value="1:527207424814:android:69e4beae169152fdac50bf" />
-                  <option name="projectId" value="doodleapp-fc91c" />
-                  <option name="projectNumber" value="527207424814" />
+                  <option name="mobileSdkAppId" value="1:1056183757657:android:9743272253cadf2c41fa48" />
+                  <option name="projectId" value="doodle-backend" />
+                  <option name="projectNumber" value="1056183757657" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

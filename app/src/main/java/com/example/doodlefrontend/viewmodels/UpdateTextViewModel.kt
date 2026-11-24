@@ -3,7 +3,9 @@ package com.example.doodlefrontend.viewmodels
 import android.util.Log
 import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.doodlefrontend.repository.GetWidgetTextRepo
 import com.example.doodlefrontend.repository.UpdateNameRepo
 import com.example.doodlefrontend.utils.SharedPrefManager
 import com.example.doodlefrontend.views.HomeScreen.HomeScreen
@@ -18,7 +20,8 @@ import kotlin.math.log
 
 @HiltViewModel
 class UpdateTextViewModel @Inject constructor(
-    val updateNameRepo: UpdateNameRepo
+    val updateNameRepo: UpdateNameRepo,
+    val getWidgetTextRepo: GetWidgetTextRepo
 ) : ViewModel() {
 
     val sharedFlowUpdateName = MutableSharedFlow<HomeScreen>(extraBufferCapacity = 1)
@@ -26,7 +29,18 @@ class UpdateTextViewModel @Inject constructor(
     val doodleText = _doodleText.asStateFlow()
 
     init {
-        _doodleText.value = SharedPrefManager.getText()
+        viewModelScope.launch {
+
+            _doodleText.value = SharedPrefManager.getText()
+
+            val db_text = getWidgetTextRepo.getText().body().toString()
+
+            if(db_text != _doodleText.value){
+                SharedPrefManager.setText(_doodleText.value)
+                _doodleText.value = db_text
+            }
+
+        }
     }
 
     fun update(payload: String, color : String, font : String) {
