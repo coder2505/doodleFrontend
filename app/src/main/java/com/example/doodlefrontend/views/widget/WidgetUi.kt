@@ -1,10 +1,14 @@
 package com.example.doodlefrontend.views.widget
 
+import android.content.ComponentName
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceModifier
+import androidx.glance.action.actionStartActivity
+import androidx.glance.action.clickable
 import androidx.glance.appwidget.appWidgetBackground
 import androidx.glance.appwidget.cornerRadius
 import androidx.glance.background
@@ -17,12 +21,15 @@ import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.example.doodlefrontend.MainActivity
 import com.example.doodlefrontend.utils.SharedPrefManager
 import javax.inject.Inject
 
 
 @Composable
-fun WidgetContent() {
+fun WidgetContent(
+    componentName: ComponentName
+) {
     Box(
         modifier = GlanceModifier
             .fillMaxSize()
@@ -34,7 +41,11 @@ fun WidgetContent() {
                 )
             )
             .cornerRadius(16.dp)
-            .padding(16.dp),
+            .padding(16.dp).clickable(
+                actionStartActivity(
+                    componentName = componentName
+                )
+            ),
         contentAlignment = Alignment.Center
     ) {
         Text(
