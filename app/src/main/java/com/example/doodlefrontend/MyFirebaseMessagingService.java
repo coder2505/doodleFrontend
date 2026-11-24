@@ -37,7 +37,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Widget widget = entryPoint.widget();
 
             SharedPrefManager.INSTANCE.setText(text);
-            WidgetUpdater.update(getApplicationContext(), widget);
+            WidgetUpdater.update(getApplicationContext(), widget, text, "#800517","dummy");
         }
 
     }

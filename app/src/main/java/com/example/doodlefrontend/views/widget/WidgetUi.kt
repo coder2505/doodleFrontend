@@ -4,8 +4,10 @@ import android.content.ComponentName
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.graphics.toColorInt
 import androidx.glance.GlanceModifier
 import androidx.glance.action.actionStartActivity
 import androidx.glance.action.clickable
@@ -28,17 +30,17 @@ import javax.inject.Inject
 
 @Composable
 fun WidgetContent(
-    componentName: ComponentName
+    componentName: ComponentName,
+    text: String,
+    color : String,
+    font: String
 ) {
     Box(
         modifier = GlanceModifier
             .fillMaxSize()
             .appWidgetBackground()
             .background(
-                ColorProvider(
-                    day = Color(0xFF6750A4),
-                    night = Color(0xFFD0BCFF)
-                )
+                Color(color.toColorInt())
             )
             .cornerRadius(16.dp)
             .padding(16.dp).clickable(
@@ -49,7 +51,7 @@ fun WidgetContent(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = SharedPrefManager.getText(),
+            text = text,
             style = TextStyle(
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
