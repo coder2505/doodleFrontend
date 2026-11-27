@@ -57,6 +57,8 @@ class UpdateTextViewModel @Inject constructor(
 
             } else {
 
+                Log.e("POST failed", "update: ${resp.errorBody().toString()}", )
+
                 sharedFlowUpdateName.emit(HomeScreen.ShowSnackBar("Failed to update payload"))
 
             }
