@@ -23,6 +23,26 @@ val listOfFonts = listOf(
     FontOption(
         fontFamily = FontFamily(Font(R.font.cursivehand)),
         displayName = "cursive"
+    ),
+    FontOption(
+        fontFamily = FontFamily(Font(R.font.bebas)),
+        displayName = "bebas neue"
+    ),
+    FontOption(
+        fontFamily = FontFamily(Font(R.font.instrumentserif)),
+        displayName = "instrument serif"
+    ),
+    FontOption(
+        fontFamily = FontFamily(Font(R.font.inter)),
+        displayName = "Inter"
+    ),
+    FontOption(
+        fontFamily = FontFamily(Font(R.font.playfair)),
+        displayName = "playfair display"
+    ),
+    FontOption(
+        fontFamily = FontFamily(Font(R.font.spacemono)),
+        displayName = "typewriter"
     )
 )
 

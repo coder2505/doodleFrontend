@@ -1,7 +1,7 @@
 package com.example.doodlefrontend.views.HomeScreen
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
+import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -9,42 +9,26 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.BottomSheetDefaults
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SegmentedButton
-import androidx.compose.material3.SegmentedButtonDefaults
-import androidx.compose.material3.SheetState
-import androidx.compose.material3.SingleChoiceSegmentedButtonRow
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -52,13 +36,11 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.doodlefrontend.R
 import com.example.doodlefrontend.Routes
-import com.example.doodlefrontend.repository.GetRoomDetails
 import com.example.doodlefrontend.ui.theme.DoodleFrontendTheme
 import com.example.doodlefrontend.ui.theme.cursiveFont
 import com.example.doodlefrontend.ui.theme.notcursiveFont
-import com.example.doodlefrontend.ui.theme.peach
+import com.example.doodlefrontend.utils.SharedPrefManager
 import com.example.doodlefrontend.viewmodels.GetRoomDetailsViewModel
-import com.example.doodlefrontend.viewmodels.GetRoomMembers
 import com.example.doodlefrontend.viewmodels.UpdateTextViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -72,6 +54,9 @@ fun HomeScreen(
 
     var text = updateTextViewModel.doodleText.collectAsState("")
     var roomName = getRoomDetails.roomName.collectAsState()
+    val color = SharedPrefManager.parseColor(SharedPrefManager.getColor())
+
+    Log.d("hi", "HomeScreen: ${color}")
 
     DoodleFrontendTheme {
 
@@ -110,20 +95,52 @@ fun HomeScreen(
                 Box(
                     contentAlignment = Alignment.Center
                 ) {
-                    Image(
+
+                    Box(
                         modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.6f)
+                            .padding(8.dp)
+                            .border(
+                                2.dp,
+                                Color.Black,
+                                shape = RoundedCornerShape(16.dp)
+                            )
+                            .background(color = color)
                             .clickable(
                                 onClick = {
-//                                    openBottomSheet = !openBottomSheet
                                     navController.navigate(Routes.UpdateTextScreen)
                                 }
                             ),
-                        contentDescription = "",
-                        painter = painterResource(R.drawable.doodlebackground)
-                    )
+                        contentAlignment = Alignment.Center,
+                    ) {
+
+                        Text(
+                            text.value,
+                            fontFamily = cursiveFont,
+                            color = Color.Black,
+                            fontSize = 40.sp
+                        )
+
+                    }
+
+//
+//                    Image(
+//                        modifier = Modifier
+//                            .clickable(
+//                                onClick = {
+//                                    navController.navigate(Routes.UpdateTextScreen)
+//                                }
+//                            ),
+//                        contentDescription = "",
+//                        painter = painterResource(R.drawable.doodlebackground)
+//                    )
 
                     Text(
-                        text.value, fontFamily = cursiveFont, color = Color.Black, fontSize = 40.sp
+                        text.value,
+                        fontFamily = cursiveFont,
+                        color = Color.Black,
+                        fontSize = 40.sp
                     )
                 }
                 Text(
@@ -156,110 +173,6 @@ fun HomeScreen(
 
         }
 
-
-    }
-
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview
-@Composable
-fun ModalSheet(
-    bottomSheetState: SheetState = rememberModalBottomSheetState(),
-    onDismiss: () -> Unit = {}
-) {
-    ModalBottomSheet(
-        onDismissRequest = onDismiss,
-        sheetState = bottomSheetState,
-        scrimColor = Color.Transparent,
-        containerColor = Color.Transparent,
-        dragHandle = null,
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Surface(
-            modifier = Modifier.fillMaxWidth(),
-            color = Color(0xffF5E3AF),
-            shape = BottomSheetDefaults.ExpandedShape,
-            border = BorderStroke(2.dp, Color.Black)
-        ) {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                BottomSheetDefaults.DragHandle()
-                SingleSegmentedButton()
-            }
-        }
-    }
-}
-
-@Composable
-fun InputOptions(index: Int) {
-
-    when (index) {
-
-        0 -> DrawCanvas()
-        1 -> PickMedia()
-        2 -> SubmitText()
-
-
-    }
-
-}
-
-
-@Preview
-@Composable
-fun SingleSegmentedButton() {
-
-    var selectedIndex by remember { mutableIntStateOf(0) }
-    val options =
-        listOf(R.drawable.editdoodle, R.drawable.editpic, R.drawable.editicon)
-
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        SingleChoiceSegmentedButtonRow {
-            options.forEachIndexed { index, label ->
-                SegmentedButton(
-                    shape = SegmentedButtonDefaults.itemShape(
-                        index = index,
-                        count = options.size,
-                    ),
-                    onClick = { selectedIndex = index },
-                    selected = index == selectedIndex,
-                    colors = SegmentedButtonDefaults.colors(
-
-                        activeContainerColor = peach,
-                        activeBorderColor = Color.Black,
-                        inactiveContainerColor = Color.White,
-
-                        ),
-                    label = {
-                        Box(
-                            modifier = Modifier.size(size = 25.dp)
-                        ) {
-                            Image(
-                                contentDescription = "",
-                                painter = painterResource(options[index]),
-                                contentScale = ContentScale.Fit
-                            )
-                        }
-                    }
-                )
-            }
-        }
-
-        Spacer(Modifier.height(5.dp))
-
-        Box(
-            modifier = Modifier
-                .size(400.dp)
-                .padding(10.dp)
-        ) {
-            InputOptions(selectedIndex)
-        }
 
     }
 

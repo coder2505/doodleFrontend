@@ -53,6 +53,11 @@ class UpdateTextViewModel @Inject constructor(
             if (resp.isSuccessful) {
                 Log.d("update view model","success babe wtf")
                 _doodleText.value = payload
+
+                SharedPrefManager.setFont(font)
+                SharedPrefManager.setColor(color)
+
+
                 sharedFlowUpdateName.emit(HomeScreen.Success)
 
             } else {

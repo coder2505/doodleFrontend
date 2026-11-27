@@ -7,7 +7,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.graphics.toColorInt
 import androidx.datastore.preferences.core.Preferences
 import androidx.glance.GlanceModifier
 import androidx.glance.action.actionStartActivity
@@ -41,7 +40,7 @@ fun WidgetContent(
             .fillMaxSize()
             .appWidgetBackground()
             .background(
-                Color(color.toColorInt())
+                SharedPrefManager.parseColor(color, Color(0xFF800522))
             )
             .cornerRadius(16.dp)
             .padding(16.dp).clickable(

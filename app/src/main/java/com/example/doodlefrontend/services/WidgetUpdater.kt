@@ -1,16 +1,12 @@
 package com.example.doodlefrontend.services
 
 import android.content.Context
+import android.util.Log
 import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.glance.appwidget.state.updateAppWidgetState
-import androidx.glance.appwidget.updateAll
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkRequest
 import com.example.doodlefrontend.views.widget.Widget
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import androidx.compose.ui.graphics.toArgb
 
 object WidgetUpdater {
     @JvmStatic
@@ -19,6 +15,9 @@ object WidgetUpdater {
 
             val manager = GlanceAppWidgetManager(context)
             val glanceIds = manager.getGlanceIds(widget.javaClass)
+
+            Log.d("inside", "color: ${color}")
+//            val hexColor = String.format("#%08X", color.toArgb())
 
             glanceIds.forEach { glanceId ->
                 updateAppWidgetState(context, glanceId) { prefs ->

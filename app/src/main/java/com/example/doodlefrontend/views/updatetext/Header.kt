@@ -1,5 +1,6 @@
 package com.example.doodlefrontend.views.updatetext
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.sp
@@ -35,9 +37,10 @@ fun Header(
         )
         Button(
             onClick = {
+                Log.d("onclick", "Header: ${font}")
                 updateTextViewModel.update(
                     payload = textFieldState.text.toString(),
-                    color = color.toString(),
+                    color = color.toArgb().toString(),
                     font = font.toString()
                 )
             },
